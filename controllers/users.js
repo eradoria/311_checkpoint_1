@@ -24,14 +24,18 @@ const create = //////////// add new comment
   (req, res) => {
     const length = users.length;
 
-    const newComment = {
-      id: length + 1,
-      ...req.body,
-    };
+    try {
+      const newComment = {
+        id: length + 1,
+        ...req.body,
+      };
 
-    users.push(newComment);
+      users.push(newComment);
 
-    res.json(users);
+      res.json(users);
+    } catch (e) {
+      res.status(500).send("Could Not Find ID");
+    }
   };
 
 const update = (req, res) => {
@@ -46,8 +50,8 @@ const update = (req, res) => {
     if (parm == element.id) {
       //   console.log(req.body);
       if (req.body) {
-        console.log(element, req.body);
-        users[i] = req.body;
+        // console.log(element, req.body);
+        users[i] = { ...req.body };
       }
     }
   }
@@ -57,13 +61,17 @@ const update = (req, res) => {
 
 const remove = (req, res) => {
   // console.log(req,params)
-  const removeUser = users.find(
-    (item, index, arr) => item.id === Number(req.params.id)
-  );
-  removeUser.isactive = false;
-  //   delete removeUser;
+  try {
+    const removeUser = users.find(
+      (item, index, arr) => item.id === Number(req.params.id)
+    );
+    removeUser.isactive = false;
+    //   delete removeUser;
 
-  res.send(removeUser);
+    res.send(removeUser);
+  } catch (e) {
+    res.status(500).send("Could Not Find ID");
+  }
 };
 
 module.exports = {
