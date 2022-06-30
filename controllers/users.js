@@ -59,6 +59,23 @@ const update = (req, res) => {
   res.json(users);
 };
 
+//this portion will be worked on after
+// const update = (req, res) => {
+//   // console.log(job)
+
+//   const parm = Number(req.params.id);
+
+//   //use find methoad to find the user we want to update
+//   // use parm to find user parm === userid
+
+//   const newuser = {
+//     ...users,
+//     ...req.body,
+//   };
+
+//   res.json(newuser);
+// };
+
 const remove = (req, res) => {
   // console.log(req,params)
   try {
